@@ -42,24 +42,21 @@ int main() {
     double theta1 = 0.0;
     int m = mileage.size();
 
-    for (int iteration = 0; iteration < 1000; iteration++) {
-        double tmpTheta0 = 0.0;
-        double tmpTheta1 = 0.0;
+    double tmpTheta0 = 0.0;
+    double tmpTheta1 = 0.0;
 
-        for (int i = 0; i < m; i++) {
-            double estimatedPrice = estimatePrice(mileage[i], theta0, theta1);
-            double error = estimatedPrice - price[i];
-
-            tmpTheta0 += error;
-            tmpTheta1 += error * mileage[i];
-        }
-
-        tmpTheta0 = (learningRate * tmpTheta0) / m;
-        tmpTheta1 = (learningRate * tmpTheta1) / m;
-
-        theta0 -= tmpTheta0;
-        theta1 -= tmpTheta1;
+    for (int i = 0; i < m; i++) {
+        double estimatedPrice = estimatePrice(mileage[i], theta0, theta1);
+        double error = estimatedPrice - price[i];
+        tmpTheta0 += error;
+        tmpTheta1 += error * mileage[i];
     }
+
+    tmpTheta0 = (learningRate * tmpTheta0) / m;
+    tmpTheta1 = (learningRate * tmpTheta1) / m;
+
+    theta0 = tmpTheta0;
+        theta1 = tmpTheta1;
 
     // Save the theta values for use in the first program
     std::ofstream thetaFile("theta.txt");
